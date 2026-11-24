@@ -1,0 +1,30 @@
+import dataset
+
+miBase = dataset.connect("sqlite:///base.db")
+tabla = miBase ["Productos"]
+
+while True:
+        opciones = input("\nA - Agregar\nL - Listar\nR - Remover\nS - Salir\n\n").upper()
+        match opciones:
+
+            case "A":
+                agregarProducto = input("\nProducto:   ").strip()
+                agregarPrecio = float(input("\nPrecio:  ").strip())
+                agregarCategoria = input("\nCategoria:   ").strip()
+
+                agregar = {"Nombre":agregarProducto, "Precio": agregarPrecio, "Categoria":agregarCategoria} 
+
+                tabla.insert(agregar)
+
+            case"S":
+                break
+
+            case "L":
+              for items in tabla:
+                  print(f'ID:{items["id"]} | Producto: {items["Nombre"]} | Precio: {items["Precio"]} | Categoria: {items["Categoria"]}')
+
+            case "R":
+                removerNombre = input("\nProducto a remover").strip()
+                tabla.delete(Nombre=removerNombre)
+
+                print(F"\n{removerNombre} se ha quitado con éxito!\n")
